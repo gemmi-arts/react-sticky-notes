@@ -1,0 +1,39 @@
+{
+  "name": "react-sticky-notes",
+  "version": "0.1.0",
+  "description": "react sticky notes",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "./node_modules/.bin/eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gemmi-arts/react-sticky-notes.git"
+  },
+  "author": "Gemmi",
+  "license": "MIT",
+  "homepage": "https://github.com/gemmi-arts/react-sticky-notes.git#readme",
+  "devDependencies": {
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "css-loader": "^0.25.0",
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^3.16.1",
+    "node-sass": "^3.10.0",
+    "react-hot-loader": "^1.3.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.11.1",
+    "lodash": "^4.15.0",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  }
+}
