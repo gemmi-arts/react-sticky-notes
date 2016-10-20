@@ -1,5 +1,7 @@
 # React Sticky Notes
 
+![screen notes](public/screens/sticky-notes.png)
+
 ### Setting Up
 
 ```
