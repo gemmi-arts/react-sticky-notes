@@ -1,10 +1,9 @@
 # React Sticky Notes
 
-```bash
-  npm install
+### Setting Up
+
 ```
-```bash
+  npm install
   npm start run
 ```
-
-[a link](http://localhost:8080/)
+Your app should be running [http://localhost:8080/](http://localhost:8080/)
