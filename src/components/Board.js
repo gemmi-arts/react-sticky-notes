@@ -11,14 +11,6 @@ export default class Board extends Component {
     this.state = {
       notes: []
     };
-
-    // Bindings
-    this.update = this.update.bind(this);
-    this.updatePosition = this.updatePosition.bind(this);
-    this.add = this.add.bind(this);
-    this.remove = this.remove.bind(this);
-    this.nextId = this.nextId.bind(this);
-    this.renderNotes = this.renderNotes.bind(this);
   }
 
   componentWillMount() {
@@ -45,7 +37,7 @@ export default class Board extends Component {
   add(text, position) {
     const { notes } = this.state;
     notes.push({
-      id: this.nextId(),
+      id: this.nextId(this),
       note: text,
       position
     });
@@ -80,24 +72,34 @@ export default class Board extends Component {
       <Note key={note.id}
             index={i}
             position={note.position}
-            onChange={this.update}
-            onDrag={this.updatePosition}
-            onRemove={this.remove} >
+            onChange={this.update.bind(this)}
+            onDrag={this.updatePosition.bind(this)}
+            onRemove={this.remove.bind(this)} >
         {note.note}
       </Note>
     );
   }
 
+  onDragOver(e) {
+    e.preventDefault();
+  }
+
+  onDrop(e) {
+    let noteId = e.dataTransfer.getData("application/x-note");
+    let position = {xPos: e.clientX, yPos: e.clientY};
+    this.updatePosition(position, noteId);
+  }
+
   render() {
     const { notes } = this.state;
     return (
-      <div className="board">
+      <div className="board" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e)}>
         <header className="main-header">
-          <div className="main-header__text fadein" onClick={this.add.bind(null, newNoteText, false)}>
+          <div className="main-header__text fadein" onClick={this.add.bind(this, newNoteText, false)}>
             {newNoteButtonText}
           </div>
         </header>
-        {notes.map(this.renderNotes)}
+        {notes.map(this.renderNotes.bind(this))}
       </div>
     );
   }

@@ -11,40 +11,26 @@ export default class Note extends Component {
     this.state = {
       editing: false
     };
-
-    // Bindings
-    this.edit = this.edit.bind(this);
-    this.save = this.save.bind(this);
-    this.remove = this.remove.bind(this);
-    this.renderDisplay = this.renderDisplay.bind(this);
-    this.renderForm = this.renderForm.bind(this);
   }
 
-  componentWillMount() {
-    const { position } = this.props;
-    var left = (position ? position.xPos : this.randomBetween(0, window.innerWidth - 280) + "px");
-    var top = (position ? position.yPos : this.randomBetween(0, window.innerHeight - 280) + "px");
-
+  updatePosition({position}) {
     this.style = {
-      left,
-      top
+      left: (position ? position.xPos : this.randomBetween(0, window.innerWidth - 280) + "px"),
+      top: (position ? position.yPos : this.randomBetween(0, window.innerHeight - 280) + "px")
     };
   }
 
-  componentDidMount() {
-    const self = this.props;
-    const { index } = this.props;
-    const element = ReactDOM.findDOMNode(this);
+  componentWillMount() {
+    this.updatePosition(this.props);
+  }
 
-    $(element).draggable(
-      {
-        drag: () => {
-          var offset = $(element).offset();
-          var position = {xPos: offset.left, yPos: offset.top};
-          self.onDrag(position, index);
-        }
-      }
-    );
+  componentWillUpdate(nextProps) {
+    this.updatePosition(nextProps);
+  }
+
+  onDragStart(e) {
+    const { index } = this.props;
+    e.dataTransfer.setData("application/x-note", index);
   }
 
   // Get random position
@@ -73,18 +59,18 @@ export default class Note extends Component {
   // Render note body
   renderNoteBody(content, save) {
     return (
-      <div onDoubleClick={() => this.edit()} className="note" style={this.style}>
+      <div draggable="true" onDragStart={(e) => this.onDragStart(e)} onDoubleClick={() => this.edit()} className="note" style={this.style}>
         <article>
           <header className="note__header">
             <div className="wrapper-tooltip">
-               <span onClick={this.remove} className="close hairline"></span>
+               <span onClick={() => this.remove()} className="close hairline"></span>
                <div className="tooltip">{removeToolTipText}</div>
             </div>
           </header>
           <div className="note__content">{content}</div>
           <footer className="note__footer">
             <div className="note__fold"></div>
-            {save ? <div className="note__save" onClick={this.save}>{saveText}</div> : ""}
+            {save ? <div className="note__save" onClick={() => this.save()}>{saveText}</div> : ""}
           </footer>
         </article>
       </div>
