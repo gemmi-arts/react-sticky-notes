@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 
 const saveText = "SAVE";
 const removeToolTipText = "Remove note";
@@ -46,7 +45,7 @@ export default class Note extends Component {
   // Save edits
   save() {
     const { index } = this.props;
-    this.props.onChange(ReactDOM.findDOMNode(this.refs.newText).value, index);
+    this.props.onChange(this.newText.value, index);
     this.setState({editing: false});
   }
 
@@ -88,7 +87,7 @@ export default class Note extends Component {
     const { children } = this.props;
     const content = (
       <div>
-        <textarea ref="newText" defaultValue={children} className="note__textarea"></textarea>
+        <textarea ref={ref => this.newText = ref} defaultValue={children} className="note__textarea"></textarea>
       </div>
     );
 

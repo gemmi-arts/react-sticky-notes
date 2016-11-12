@@ -15,7 +15,7 @@ export default class Board extends Component {
 
   componentWillMount() {
     // Get notes from local storage
-    var notes = JSON.parse(localStorage.getItem("notesStorage")) || [];
+    const notes = JSON.parse(localStorage.getItem("notesStorage")) || [];
     notes.map((single) => {
       this.add(single.note, single.position);
     });
